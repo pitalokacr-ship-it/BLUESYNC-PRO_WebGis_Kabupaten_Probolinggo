@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLUESYNC-PRO | Portal WebGIS Interaktif Probolinggo</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#0f172a',
+                            950: '#080e1a',
+                        },
+                        tealbrand: {
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080e1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0369a1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(45, 212, 191, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-ocean-950 text-slate-100 min-h-screen flex flex-col selection:bg-tealbrand-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 bg-ocean-900/90 backdrop-blur-md border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Branding Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-ocean-600 via-ocean-500 to-tealbrand-500 flex items-center justify-center shadow-lg shadow-ocean-500/20 text-white font-black text-xl tracking-wider">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-wider bg-gradient-to-r from-white via-sky-200 to-tealbrand-400 bg-clip-text text-transparent">
+                            BLUESYNC-PRO
+                        </span>
+                        <p class="text-[11px] text-slate-400 -mt-1 font-medium">Portal WebGIS Geospasial Kabupaten Probolinggo</p>
+                    </div>
+                </div>
+
+                <!-- Right Action Header -->
+                <div>
+                    <button onclick="copyPortalLink()" class="px-3 py-1.5 rounded-xl bg-ocean-800 hover:bg-ocean-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-2">
+                        <i class="fa-solid fa-share-nodes text-tealbrand-400"></i>
+                        <span class="hidden sm:inline">Bagikan Portal</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Section -->
+    <section class="relative bg-gradient-to-b from-ocean-900/80 via-ocean-950 to-ocean-950 py-10 border-b border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl space-y-3">
+                <h1 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                    Pemantauan Ketahanan Air &amp; Pesisir Kabupaten Probolinggo
+                </h1>
+                <p class="text-sm text-slate-300 leading-relaxed">Sistem pemantauan geospasial terpadu BLUESYNC-PRO menyajikan analisis spasial kekeringan, presipitasi curah hujan, dan dinamika kenaikan muka air laut secara langsung di halaman utama untuk mendukung perencanaan ketahanan iklim daerah pada Kabupaten Probolinggo.</p>
+            </div>
+
+            <!-- Key Indicators Bar -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-ocean-500/20 text-ocean-400 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-map text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="text-[11px] text-slate-400">Total Peta Spasial</div>
+                        <div class="text-sm font-bold text-white">3 Layanan Interaktif</div>
+                    </div>
+                </div>
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-tealbrand-500/20 text-tealbrand-400 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-satellite text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="text-[11px] text-slate-400">Sumber Analisis Data</div>
+                        <div class="text-sm font-bold text-white">Satelit Landsat &amp; CHIRPS</div>
+                    </div>
+                </div>
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-location-dot text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="text-[11px] text-slate-400">Cakupan Wilayah</div>
+                        <div class="text-sm font-bold text-white">Kabupaten Probolinggo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        
+        <!-- Search & Filter Controls -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
+            <div>
+                <h2 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-tealbrand-400"></i>
+                    Peta Geospasial Utama
+                </h2>
+                <p class="text-xs text-slate-400">Seluruh peta dapat langsung digeser, diperbesar, dan dieksplorasi di halaman ini</p>
+            </div>
+
+            <div class="relative w-full sm:w-72">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                <input type="text" id="catalog-search" oninput="filterCatalog()" placeholder="Cari judul atau topik peta..." class="w-full bg-ocean-950 border border-slate-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-tealbrand-500">
+            </div>
+        </div>
+
+        <div id="catalog-grid" class="grid grid-cols-1 gap-8">
+
+            <!-- CARD 1: PETA KEKERINGAN -->
+            <div class="map-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300">
+                <div class="p-6 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1.5">
+                            <i class="fa-solid fa-sun"></i> Kekeringan &amp; Vegetasi
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">01 / 03</span>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white hover:text-tealbrand-400 transition">
+                        PETA KEKERINGAN (NDWI, NDVI, NDDI)
+                    </h3>
+
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Peta ini menyajikan analisis tingkat kekeringan wilayah Kabupaten Probolinggo berbasis perpaduan indeks kebasahan NDWI, indeks vegetasi NDVI, dan indeks kekeringan NDDI. Pemetaan ini membantu mengidentifikasi wilayah yang mengalami defisit air vegetasi dan kerentanan lahan secara akurat.
+                    </p>
+                </div>
+
+                <!-- Embedded Map View directly on home page -->
+                <div class="relative w-full h-[500px] bg-slate-950 border-t border-b border-slate-800">
+                    <iframe src="https://engine-476507.projects.earthengine.app/view/peta-kekeringan-kabupaten-probolinggo" class="w-full h-full border-0" allow="geolocation"></iframe>
+                </div>
+
+                <div class="p-4 bg-slate-900/90 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div class="text-xs text-slate-400 flex items-center gap-2 truncate max-w-full sm:max-w-md">
+                        <i class="fa-solid fa-link text-tealbrand-400 shrink-0"></i>
+                        <span class="truncate">https://engine-476507.projects.earthengine.app/view/peta-kekeringan-kabupaten-probolinggo</span>
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <a href="https://engine-476507.projects.earthengine.app/view/peta-kekeringan-kabupaten-probolinggo" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-ocean-600 to-tealbrand-600 hover:from-ocean-500 hover:to-tealbrand-500 text-white text-xs font-semibold shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Fullscreen
+                        </a>
+                        <button onclick="copyMapUrl('https://engine-476507.projects.earthengine.app/view/peta-kekeringan-kabupaten-probolinggo')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs border border-slate-700 transition flex items-center gap-1.5" title="Salin Tautan Peta">
+                            <i class="fa-solid fa-copy"></i> Salin Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 2: PETA CURAH HUJAN -->
+            <div class="map-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300">
+                <div class="p-6 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center gap-1.5">
+                            <i class="fa-solid fa-cloud-showers-heavy"></i> Presipitasi CHIRPS
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">02 / 03</span>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white hover:text-tealbrand-400 transition">
+                        PETA CURAH HUJAN
+                    </h3>
+
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Peta ini menampilkan distribusi dan akumulasi curah hujan spasial di Kabupaten Probolinggo yang diolah dari data hidrometeorologi CHIRPS. Peta berguna untuk memantau pola ketersediaan air hujan dan deteksi dini ancaman kekeringan meteorologi.
+                    </p>
+                </div>
+
+                <!-- Embedded Map View directly on home page -->
+                <div class="relative w-full h-[500px] bg-slate-950 border-t border-b border-slate-800">
+                    <iframe src="https://coastal-gantry-476507-r6.projects.earthengine.app/view/peta-curah-hujan-kabupaten-probolinggo" class="w-full h-full border-0" allow="geolocation"></iframe>
+                </div>
+
+                <div class="p-4 bg-slate-900/90 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div class="text-xs text-slate-400 flex items-center gap-2 truncate max-w-full sm:max-w-md">
+                        <i class="fa-solid fa-link text-tealbrand-400 shrink-0"></i>
+                        <span class="truncate">https://coastal-gantry-476507-r6.projects.earthengine.app/view/peta-curah-hujan-kabupaten-probolinggo</span>
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <a href="https://coastal-gantry-476507-r6.projects.earthengine.app/view/peta-curah-hujan-kabupaten-probolinggo" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-ocean-600 to-tealbrand-600 hover:from-ocean-500 hover:to-tealbrand-500 text-white text-xs font-semibold shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Fullscreen
+                        </a>
+                        <button onclick="copyMapUrl('https://coastal-gantry-476507-r6.projects.earthengine.app/view/peta-curah-hujan-kabupaten-probolinggo')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs border border-slate-700 transition flex items-center gap-1.5" title="Salin Tautan Peta">
+                            <i class="fa-solid fa-copy"></i> Salin Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3: PETA KENAIKAN MUKA AIR LAUT -->
+            <div class="map-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300">
+                <div class="p-6 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center gap-1.5">
+                            <i class="fa-solid fa-water"></i> Pesisir &amp; Rob
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">03 / 03</span>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white hover:text-tealbrand-400 transition">
+                        PETA KENAIKAN MUKA AIR LAUT
+                    </h3>
+
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Peta ini mengidentifikasi tingkat kerentanan kawasan pesisir Kabupaten Probolinggo terhadap kenaikan muka air laut dan potensi banjir rob. Informasi spasial ini mendukung upaya pencegahan adanya intrusi air laut dan perencanaan mitigasi bencana pesisir.
+                    </p>
+                </div>
+
+                <!-- Embedded Map View directly on home page -->
+                <div class="relative w-full h-[500px] bg-slate-950 border-t border-b border-slate-800">
+                    <iframe src="https://storied-lodge-506508-n8.projects.earthengine.app/view/kenaikan-muka-air-laut" class="w-full h-full border-0" allow="geolocation"></iframe>
+                </div>
+
+                <div class="p-4 bg-slate-900/90 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div class="text-xs text-slate-400 flex items-center gap-2 truncate max-w-full sm:max-w-md">
+                        <i class="fa-solid fa-link text-tealbrand-400 shrink-0"></i>
+                        <span class="truncate">https://storied-lodge-506508-n8.projects.earthengine.app/view/kenaikan-muka-air-laut</span>
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <a href="https://storied-lodge-506508-n8.projects.earthengine.app/view/kenaikan-muka-air-laut" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-ocean-600 to-tealbrand-600 hover:from-ocean-500 hover:to-tealbrand-500 text-white text-xs font-semibold shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Fullscreen
+                        </a>
+                        <button onclick="copyMapUrl('https://storied-lodge-506508-n8.projects.earthengine.app/view/kenaikan-muka-air-laut')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs border border-slate-700 transition flex items-center gap-1.5" title="Salin Tautan Peta">
+                            <i class="fa-solid fa-copy"></i> Salin Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 bg-tealbrand-600 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-tealbrand-400/40 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-base"></i>
+        <span id="toast-msg" class="text-xs font-semibold">Pesan notifikasi</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-ocean-950 border-t border-slate-800/80 py-6 mt-10 text-slate-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-md bg-ocean-600 flex items-center justify-center text-white text-xs font-bold">
+                    <i class="fa-solid fa-compass"></i>
+                </div>
+                <span class="font-bold text-slate-200">BLUESYNC-PRO</span>
+                <span class="text-slate-500">| Portal Geospasial Kabupaten Probolinggo</span>
+            </div>
+            <p class="text-slate-300 text-xs font-medium">Dikembangkan oleh Rhenata, Intan, dan Nisa</p>
+        </div>
+    </footer>
+
+    <script>
+        function copyMapUrl(url) {
+            copyToClipboard(url);
+            showToast('Tautan peta berhasil disalin!', 'fa-solid fa-copy');
+        }
+
+        function copyPortalLink() {
+            copyToClipboard(window.location.href);
+            showToast('Tautan portal BLUESYNC-PRO berhasil disalin!', 'fa-solid fa-share-nodes');
+        }
+
+        function copyToClipboard(text) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+        }
+
+        function showToast(msg, iconClass = 'fa-solid fa-circle-check') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+
+            if (toast && toastMsg && toastIcon) {
+                toastMsg.innerText = msg;
+                toastIcon.className = iconClass + ' text-base';
+                toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+                }, 3000);
+            }
+        }
+
+        function filterCatalog() {
+            const query = document.getElementById('catalog-search').value.toLowerCase();
+            const cards = document.querySelectorAll('.map-card');
+
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
